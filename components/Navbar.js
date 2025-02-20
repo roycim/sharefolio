@@ -82,20 +82,21 @@ export default function Navbar() {
             return (
               <Link key={item.label} href={item.href} className="group relative">
                 <span
-                  className={`
-                    text-[22px] font-medium transition-colors duration-300 cursor-pointer
-                    ${
-                      isActive
-                        ? isDarkMode
-                          ? "font-bold text-white"
-                          : "font-bold text-black"
-                        : "text-foreground/80 dark:text-white/80"
-                    }
-                    hover:text-black dark:hover:text-white
-                  `}
-                >
-                  {item.label}
-                </span>
+  className={`
+    text-[22px] font-medium transition-colors duration-300 cursor-pointer
+    ${
+      isActive
+        ? isDarkMode
+          ? "font-bold text-white"
+          : "font-bold text-black"
+        : "text-foreground/80 dark:text-white/80"
+    }
+    ${isDarkMode ? "hover:text-white" : "hover:text-black"} 
+  `}
+>
+  {item.label}
+</span>
+
                 {/* Underline Animation */}
                 <span
                   className={`
