@@ -60,6 +60,12 @@ export default function Navbar() {
     };
   }, []);
 
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    setUser(null);
+    router.push("/");
+  }
+
   return (
     <nav
       className={`
@@ -75,31 +81,29 @@ export default function Navbar() {
             const isActive = router.pathname === item.href;
             return (
               <Link key={item.label} href={item.href} className="group relative">
-  <span
-    className={`
-      text-[22px] font-medium transition-colors duration-300 cursor-pointer
-      ${
-        isActive
-          ? "font-bold text-white dark:text-white" // Selected page is more prominent
-          : "text-foreground/80 dark:text-white/80" // Non-active pages are slightly faded
-      }
-      hover:text-black dark:hover:text-white
-    `}
-  >
-    {item.label}
-  </span>
-
-  {/* Underline Animation */}
-  <span
-    className={`
-      absolute -bottom-1 left-0 w-full h-0.5 bg-blue-400 scale-x-0
-      group-hover:scale-x-100 transition-transform duration-300 origin-left
-    `}
-  />
-</Link>
-
-
-
+                <span
+                  className={`
+                    text-[22px] font-medium transition-colors duration-300 cursor-pointer
+                    ${
+                      isActive
+                        ? isDarkMode
+                          ? "font-bold text-white"
+                          : "font-bold text-black"
+                        : "text-foreground/80 dark:text-white/80"
+                    }
+                    hover:text-black dark:hover:text-white
+                  `}
+                >
+                  {item.label}
+                </span>
+                {/* Underline Animation */}
+                <span
+                  className={`
+                    absolute -bottom-1 left-0 w-full h-0.5 bg-blue-400 scale-x-0
+                    group-hover:scale-x-100 transition-transform duration-300 origin-left
+                  `}
+                />
+              </Link>
             );
           })}
         </div>
@@ -125,32 +129,31 @@ export default function Navbar() {
       </div>
 
       {/* CENTER: Responsive Logo */}
-<div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center">
-  <div className="hidden sm:block">
-    <Image
-      src={isDarkMode ? "/sharefolio-logo-dark.png" : "/sharefolio-logo-light.png"} 
-      alt="Sharefolio Logo"
-      width={200}
-      height={40}
-      priority
-    />
-  </div>
-  <div className="block sm:hidden">
-    <Image
-      src="/sharefolio-logo-small.png"
-      alt="Sharefolio Small Logo"
-      width={40}
-      height={40}
-      priority
-    />
-  </div>
-</div>
-
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center">
+        <div className="hidden sm:block">
+          <Image
+            src={isDarkMode ? "/sharefolio-logo-dark.png" : "/sharefolio-logo-light.png"}
+            alt="Sharefolio Logo"
+            width={200}
+            height={40}
+            priority
+          />
+        </div>
+        <div className="block sm:hidden">
+          <Image
+            src="/sharefolio-logo-small.png"
+            alt="Sharefolio Small Logo"
+            width={40}
+            height={40}
+            priority
+          />
+        </div>
+      </div>
 
       {/* RIGHT: Profile Dropdown + Theme Dropdown */}
       <div className="flex items-center space-x-4 pr-12">
         {user ? (
-          <UserDropdown user={user} onLogout={handleLogout} />
+          <UserDropdown user={user} onLogout={handleLogout} isDarkMode={isDarkMode} />
         ) : (
           <div className="flex items-center space-x-2">
             <Button
@@ -169,20 +172,14 @@ export default function Navbar() {
             </Button>
           </div>
         )}
-        <ThemeDropdown />
+        <ThemeDropdown isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       </div>
     </nav>
   );
-
-  async function handleLogout() {
-    await supabase.auth.signOut();
-    setUser(null);
-    router.push("/");
-  }
 }
 
 /* Profile Dropdown Component */
-function UserDropdown({ user, onLogout }) {
+function UserDropdown({ user, onLogout, isDarkMode }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -190,25 +187,37 @@ function UserDropdown({ user, onLogout }) {
           <CircleUserRound size={20} strokeWidth={2} aria-hidden="true" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="min-w-[220px] p-3 bg-white dark:bg-gray-900 border border-border rounded-md shadow-md">
+      <DropdownMenuContent 
+        className={`min-w-[220px] p-3 border border-border rounded-md shadow-md 
+                    ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
+      >
         <DropdownMenuLabel className="flex flex-col items-center gap-1 py-3 px-4">
           <img src="/avatar.jpg" alt="Avatar" className="w-10 h-10 rounded-full" />
-          <span className="text-sm font-semibold text-foreground">Your Name</span>
-          <span className="text-xs font-normal text-muted-foreground">{user.email}</span>
+          <span className="text-sm font-semibold">{user.email}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="my-2 border-border" />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="py-3 px-4 text-sm rounded-md hover:bg-muted/50 transition-colors">
+          <DropdownMenuItem 
+            className={`py-3 px-4 text-sm rounded-md transition-colors 
+                        ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
+          >
             <Bolt size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
             <span>Profile</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className="py-3 px-4 text-sm rounded-md hover:bg-muted/50 transition-colors">
+          <DropdownMenuItem 
+            className={`py-3 px-4 text-sm rounded-md transition-colors 
+                        ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
+          >
             <UserPen size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
             <span>Settings</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator className="my-2 border-border" />
-        <DropdownMenuItem onClick={onLogout} className="py-3 px-4 text-sm rounded-md hover:bg-muted/50 transition-colors">
+        <DropdownMenuItem 
+          onClick={onLogout} 
+          className={`py-3 px-4 text-sm rounded-md transition-colors 
+                      ${isDarkMode ? "text-red-400 hover:bg-gray-700" : "text-red-600 hover:bg-gray-200"}`}
+        >
           <LogOut size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
           <span>Logout</span>
         </DropdownMenuItem>
@@ -218,9 +227,7 @@ function UserDropdown({ user, onLogout }) {
 }
 
 /* Theme Dropdown Component */
-function ThemeDropdown() {
-  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
-
+function ThemeDropdown({ isDarkMode, toggleTheme }) {
   const handleSetTheme = (value) => {
     if (value === "dark" && !isDarkMode) {
       toggleTheme();
@@ -233,7 +240,7 @@ function ThemeDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="icon" variant="outline" aria-label="Select theme" className="hover:bg-muted/40 transition-colors">
+        <Button size="icon" variant="outline" aria-label="Select theme" className="hover:bg-muted transition-colors">
           {isDarkMode ? (
             <Moon size={16} strokeWidth={2} aria-hidden="true" />
           ) : (
@@ -241,16 +248,31 @@ function ThemeDropdown() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="min-w-[220px] p-3 bg-white dark:bg-gray-900 border border-border rounded-md shadow-md">
-        <DropdownMenuItem onClick={() => handleSetTheme("light")} className="py-3 px-4 text-sm rounded-md hover:bg-muted/50 transition-colors">
+      <DropdownMenuContent 
+        className={`min-w-[220px] p-3 border border-border rounded-md shadow-md 
+                    ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
+      >
+        <DropdownMenuItem 
+          onClick={() => handleSetTheme("light")} 
+          className={`py-3 px-4 text-sm rounded-md transition-colors 
+                      ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
+        >
           <Sun size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
           <span>Light</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleSetTheme("dark")} className="py-3 px-4 text-sm rounded-md hover:bg-muted/50 transition-colors">
+        <DropdownMenuItem 
+          onClick={() => handleSetTheme("dark")} 
+          className={`py-3 px-4 text-sm rounded-md transition-colors 
+                      ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
+        >
           <Moon size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
           <span>Dark</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleSetTheme("system")} className="py-3 px-4 text-sm rounded-md hover:bg-muted/50 transition-colors">
+        <DropdownMenuItem 
+          onClick={() => handleSetTheme("system")} 
+          className={`py-3 px-4 text-sm rounded-md transition-colors 
+                      ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
+        >
           <Monitor size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
           <span>System</span>
         </DropdownMenuItem>
