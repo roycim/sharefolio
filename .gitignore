@@ -15,3 +15,18 @@ dist/
 bfg.jar
 bfg-report/
 sharefolio.git/
+
+# Ignore extra files
+out/
+.env.development
+.env.production
+.env.test
+.vscode/
+.idea/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+.next/cache/
+
+# Ignore BFG Report Folder
+..bfg-report/
