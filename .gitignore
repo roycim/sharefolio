@@ -8,3 +8,10 @@ dist/
 # Environment files
 .env
 .env.local
+
+# Ignore macOS files
+.DS_Store
+# Ignore BFG files
+bfg.jar
+bfg-report/
+sharefolio.git/
