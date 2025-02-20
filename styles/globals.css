@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom font and base styles */
+@font-face {
+  font-family: 'Funnel Display';
+  src: url('/fonts/FunnelDisplay.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Funnel Display', sans-serif;
+  @apply transition-colors duration-300 ease-in-out bg-background text-foreground;
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+/* Dark mode variables */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13.33%;
+    --muted: 0 0% 93.33%;
+    --muted-foreground: 0 0% 44.62%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13.33%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13.33%;
+    --border: 0 0% 85.38%;
+    --input: 0 0% 83.85%;
+    --primary: 219.73 87.4% 49.8%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 234.34 21.31% 85.83%;
+    --secondary-foreground: 0 0% 13.33%;
+    --accent: 212.89 11.14% 93.51%;
+    --accent-foreground: 0 0% 13.33%;
+    --destructive: 0 61.99% 49.86%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 208.3 100% 50%;
+    --chart-1: 219.73 87.4% 49.8%;
+    --chart-2: 234.34 21.31% 85.83%;
+    --chart-3: 212.89 11.14% 93.51%;
+    --chart-4: 234.34 21.31% 88.83%;
+    --chart-5: 219.73 90.4% 49.8%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 240 1.89% 10.39%;
+    --foreground: 0 0% 93.33%;
+    --muted: 0 0% 11.37%;
+    --muted-foreground: 0 0% 48.85%;
+    --popover: 0 0% 3.53%;
+    --popover-foreground: 0 0% 93.33%;
+    --card: 0 0% 7.06%;
+    --card-foreground: 0 0% 93.33%;
+    --border: 0 0% 17.25%;
+    --input: 0 0% 15.77%;
+    --primary: 220.91 72.13% 47.84%;
+    --primary-foreground: 0 0% 93.33%;
+    --secondary: 216.71 69.67% 52.16%;
+    --secondary-foreground: 0 0% 93.33%;
+    --accent: 212.53 76.85% 57.65%;
+    --accent-foreground: 0 0% 93.33%;
+    --destructive: 0 50% 50%;
+    --destructive-foreground: 0 0% 93.33%;
+    --ring: 217.36 16.03% 40.44%;
+    --chart-1: 220.91 72.13% 47.84%;
+    --chart-2: 216.71 69.67% 52.16%;
+    --chart-3: 212.53 76.85% 57.65%;
+    --chart-4: 216.71 69.67% 55.16%;
+    --chart-5: 220.91 75.13% 47.84%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
