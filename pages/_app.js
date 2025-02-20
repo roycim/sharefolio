@@ -1,13 +1,15 @@
-// pages/_app.js
 import React from "react";
 import { ThemeProvider } from "../context/ThemeContext";
+import { AuthProvider } from "../context/AuthContext";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

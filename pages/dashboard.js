@@ -1,79 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
-import { supabase } from "../lib/supabaseClient";
+import { useAuth } from "../context/AuthContext";
 import CreatePortfolioWizard from "../components/CreatePortfolioWizard";
 import PortfolioCard from "../components/ui/portfolio-card";
 
 export default function Dashboard() {
-  const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [myPortfolios, setMyPortfolios] = useState([]);
-  const [subscribedPortfolios, setSubscribedPortfolios] = useState([]);
+  const { user, loading, myPortfolios, subscribedPortfolios, fetchMyPortfolios } = useAuth();
   const [showWizard, setShowWizard] = useState(false);
 
-  useEffect(() => {
-    async function checkUser() {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-
-      if (!error && user) {
-        setUser(user);
-        fetchMyPortfolios(user.id);
-        fetchSubscribedPortfolios(user.id);
-      } else {
-        router.push('/auth');
-      }
-    }
-    checkUser();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        const currentUser = session?.user || null;
-        setUser(currentUser);
-        if (currentUser) {
-          fetchMyPortfolios(currentUser.id);
-          fetchSubscribedPortfolios(currentUser.id);
-        }
-      }
+  if (loading) {
+    return (
+      <Layout>
+        <div className="flex flex-col items-center justify-center h-full">
+          <h2 className="text-2xl font-bold mb-4">Loading...</h2>
+        </div>
+      </Layout>
     );
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, [router]);
-
-  async function fetchMyPortfolios(userId) {
-    try {
-      const { data, error } = await supabase
-        .from("portfolios")
-        .select("*, creatorUser:users(email)")
-        .eq("creator", userId);
-
-      if (error) throw error;
-      setMyPortfolios(data || []);
-    } catch (err) {
-      console.error("Error fetching my portfolios:", err);
-    }
-  }
-
-  async function fetchSubscribedPortfolios(userId) {
-    try {
-      const { data, error } = await supabase
-        .from("portfolio_subscriptions")
-        .select("portfolios(*, creatorUser:users(email))")
-        .eq("subscriber", userId);
-
-      if (error) throw error;
-      const subs = data
-        .map((sub) => sub.portfolios)
-        .filter((pf) => pf.visibility === "public" || pf.creator === userId);
-
-      setSubscribedPortfolios(subs || []);
-    } catch (err) {
-      console.error("Error fetching subscribed portfolios:", err);
-    }
   }
 
   return (
@@ -81,7 +23,7 @@ export default function Dashboard() {
       <div className="text-foreground">
         {!user ? (
           <div className="flex flex-col items-center justify-center h-full">
-            <h2 className="text-2xl font-bold mb-4">Loading...</h2>
+            <h2 className="text-2xl font-bold mb-4">Please sign in to continue</h2>
           </div>
         ) : (
           <>
