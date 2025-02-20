@@ -28,7 +28,6 @@ export function AuthProvider({ children }) {
         .from("portfolios")
         .select("*, creatorUser:users(email)")
         .eq("creator", userId);
-
       if (error) throw error;
       setMyPortfolios(data || []);
       return data || [];
@@ -44,12 +43,10 @@ export function AuthProvider({ children }) {
         .from("portfolio_subscriptions")
         .select("portfolios(*, creatorUser:users(email))")
         .eq("subscriber", userId);
-
       if (error) throw error;
       const subs = data
         .map((sub) => sub.portfolios)
         .filter((pf) => pf.visibility === "public" || pf.creator === userId);
-
       setSubscribedPortfolios(subs || []);
       return subs || [];
     } catch (err) {
@@ -58,31 +55,22 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Auth state management
+  // Initialize auth state using session persistence
   useEffect(() => {
-    async function initializeAuth() {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      setUser(user);
-      if (user) {
-        await Promise.all([
-          fetchMyPortfolios(user.id),
-          fetchSubscribedPortfolios(user.id)
-        ]);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user || null);
+      if (session?.user) {
+        fetchMyPortfolios(session.user.id);
+        fetchSubscribedPortfolios(session.user.id);
       }
       setLoading(false);
-    }
+    });
 
-    initializeAuth();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
-      const currentUser = session?.user || null;
-      setUser(currentUser);
-      
-      if (currentUser) {
-        await Promise.all([
-          fetchMyPortfolios(currentUser.id),
-          fetchSubscribedPortfolios(currentUser.id)
-        ]);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+      if (session?.user) {
+        fetchMyPortfolios(session.user.id);
+        fetchSubscribedPortfolios(session.user.id);
       } else {
         setMyPortfolios([]);
         setSubscribedPortfolios([]);
@@ -90,11 +78,10 @@ export function AuthProvider({ children }) {
     });
 
     return () => {
-      authListener.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
   }, []);
 
-  // Auth methods
   const signIn = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -123,8 +110,15 @@ export function AuthProvider({ children }) {
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    router.push('/');
+    try {
+      await supabase.auth.signOut();
+      setUser(null);
+      setMyPortfolios([]);
+      setSubscribedPortfolios([]);
+      router.push('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
   return (

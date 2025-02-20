@@ -1,10 +1,9 @@
-"use client";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { supabase } from "../lib/supabaseClient";
 import { ThemeContext } from "../context/ThemeContext";
+import { useAuth } from "../context/AuthContext";
 
 // OriginUI components
 import { Button } from "@/components/ui/button";
@@ -31,6 +30,7 @@ import {
 
 export default function Navbar() {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+  const { user } = useAuth();
   const router = useRouter();
 
   const navItems = [
@@ -39,32 +39,6 @@ export default function Navbar() {
     { label: "Explore", href: "/explore" },
     { label: "Draft", href: "/draft" },
   ];
-
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    async function fetchUser() {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-      if (!error) setUser(user);
-    }
-    fetchUser();
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user || null);
-      }
-    );
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
-
-  async function handleLogout() {
-    await supabase.auth.signOut();
-    setUser(null);
-    router.push("/");
-  }
 
   return (
     <nav
@@ -82,21 +56,20 @@ export default function Navbar() {
             return (
               <Link key={item.label} href={item.href} className="group relative">
                 <span
-  className={`
-    text-[22px] font-medium transition-colors duration-300 cursor-pointer
-    ${
-      isActive
-        ? isDarkMode
-          ? "font-bold text-white"
-          : "font-bold text-black"
-        : "text-foreground/80 dark:text-white/80"
-    }
-    ${isDarkMode ? "hover:text-white" : "hover:text-black"} 
-  `}
->
-  {item.label}
-</span>
-
+                  className={`
+                    text-[22px] font-medium transition-colors duration-300 cursor-pointer
+                    ${
+                      isActive
+                        ? isDarkMode
+                          ? "font-bold text-white"
+                          : "font-bold text-black"
+                        : "text-foreground/80 dark:text-white/80"
+                    }
+                    ${isDarkMode ? "hover:text-white" : "hover:text-black"} 
+                  `}
+                >
+                  {item.label}
+                </span>
                 {/* Underline Animation */}
                 <span
                   className={`
@@ -154,7 +127,7 @@ export default function Navbar() {
       {/* RIGHT: Profile Dropdown + Theme Dropdown */}
       <div className="flex items-center space-x-4 pr-12">
         {user ? (
-          <UserDropdown user={user} onLogout={handleLogout} isDarkMode={isDarkMode} />
+          <UserDropdown user={user} isDarkMode={isDarkMode} />
         ) : (
           <div className="flex items-center space-x-2">
             <Button
@@ -180,7 +153,13 @@ export default function Navbar() {
 }
 
 /* Profile Dropdown Component */
-function UserDropdown({ user, onLogout, isDarkMode }) {
+function UserDropdown({ user, isDarkMode }) {
+  const { signOut } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut();
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -215,7 +194,7 @@ function UserDropdown({ user, onLogout, isDarkMode }) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator className="my-2 border-border" />
         <DropdownMenuItem 
-          onClick={onLogout} 
+          onClick={handleLogout}
           className={`py-3 px-4 text-sm rounded-md transition-colors 
                       ${isDarkMode ? "text-red-400 hover:bg-gray-700" : "text-red-600 hover:bg-gray-200"}`}
         >
