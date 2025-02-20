@@ -8,9 +8,9 @@ export default function WidgetContainer({
 }) {
   return (
     <div className={`
-      bg-dark-50 
+      bg-card 
       rounded-xl 
-      border border-white/[0.06]
+      border border-border
       overflow-hidden
       mb-6
       ${className}
@@ -19,13 +19,13 @@ export default function WidgetContainer({
       <div className="
         px-6 
         py-4 
-        border-b border-white/[0.06]
+        border-b border-border
         flex 
         justify-between 
         items-center
-        bg-white/[0.02]
+        bg-muted
       ">
-        <h2 className="text-lg font-semibold text-white">
+        <h2 className="text-lg font-semibold text-foreground">
           {title}
         </h2>
         {headerActions && (

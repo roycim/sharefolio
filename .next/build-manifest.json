@@ -31,25 +31,20 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/auth": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/auth.js"
-    ],
     "/dashboard": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/dashboard.js"
     ],
+    "/draft": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/draft.js"
+    ],
     "/explore": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/explore.js"
-    ],
-    "/portfolio/[id]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/portfolio/[id].js"
     ]
   },
   "ampFirstPages": []

@@ -80,7 +80,7 @@ export default function Navbar() {
       text-[22px] font-medium transition-colors duration-300 cursor-pointer
       ${
         isActive
-          ? "font-bold text-black dark:text-white" // Selected page is more prominent
+          ? "font-bold text-white dark:text-white" // Selected page is more prominent
           : "text-foreground/80 dark:text-white/80" // Non-active pages are slightly faded
       }
       hover:text-black dark:hover:text-white

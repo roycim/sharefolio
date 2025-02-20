@@ -1,6 +1,10 @@
+# Node modules should never be committed
 node_modules/
-.vscode/
+
+# Build output directories
+.next/
+dist/
+
+# Environment files
 .env
-*.log
-public/fonts/
-node_modules/
+.env.local

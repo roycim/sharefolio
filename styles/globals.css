@@ -22,7 +22,7 @@ html {
 /* Dark mode variables */
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 100%; /* careful! was 100% in original color p */
     --foreground: 0 0% 13.33%;
     --muted: 0 0% 93.33%;
     --muted-foreground: 0 0% 44.62%;
@@ -60,13 +60,13 @@ html {
   .dark {
     --background: 240 1.89% 10.39%;
     --foreground: 0 0% 93.33%;
-    --muted: 0 0% 11.37%;
-    --muted-foreground: 0 0% 48.85%;
+    --muted: 0 0% 11.37%; /* was 11.37% */
+    --muted-foreground: 0 0% 60%;
     --popover: 0 0% 3.53%;
     --popover-foreground: 0 0% 93.33%;
-    --card: 0 0% 7.06%;
+    --card: 0 0% 11.37%;
     --card-foreground: 0 0% 93.33%;
-    --border: 0 0% 17.25%;
+    --border: 0 0% 20%;
     --input: 0 0% 15.77%;
     --primary: 220.91 72.13% 47.84%;
     --primary-foreground: 0 0% 93.33%;

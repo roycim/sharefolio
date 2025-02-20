@@ -2,11 +2,10 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
   "/explore": "pages/explore.js",
   "/dashboard": "pages/dashboard.js",
-  "/portfolio/[id]": "pages/portfolio/[id].js",
   "/api/syncTokens": "pages/api/syncTokens.js",
-  "/auth": "pages/auth.js",
-  "/api/portfolios": "pages/api/portfolios.js"
+  "/": "pages/index.js",
+  "/api/portfolios": "pages/api/portfolios.js",
+  "/draft": "pages/draft.js"
 }
