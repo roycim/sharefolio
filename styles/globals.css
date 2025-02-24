@@ -12,6 +12,9 @@
 
 body {
   font-family: 'Funnel Display', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   @apply transition-colors duration-300 ease-in-out bg-background text-foreground;
 }
 
@@ -92,6 +95,59 @@ html {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+
+/* Base typography settings */
+:root {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+/* Text size utility classes */
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1.25;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
 @layer base {
   * {
     @apply border-border;
