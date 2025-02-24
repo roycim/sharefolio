@@ -42,7 +42,7 @@ export default function PortfolioCard({ portfolio, user, isSubscribed = false, o
       <div className="flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-2xl font-semibold">{portfolio.name}</h3>
+            <h3 className="text-2xl font-extralight">{portfolio.name}</h3>
             <div className="flex items-center text-lg text-gray-600 mt-1">
               {subLineIcon}
               <span>{subLineText}</span>

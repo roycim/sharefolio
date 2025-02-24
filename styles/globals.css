@@ -10,16 +10,16 @@
   font-style: normal;
 }
 
-body {
-  font-family: 'Funnel Display', sans-serif;
+html {
+  @apply scroll-smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  @apply transition-colors duration-300 ease-in-out bg-background text-foreground;
 }
 
-html {
-  @apply scroll-smooth;
+body {
+  font-family: 'Funnel Display', sans-serif;
+  @apply transition-colors duration-300 ease-in-out bg-background text-foreground;
 }
 
 /* Dark mode variables */
@@ -103,7 +103,7 @@ html {
 
 @media (max-width: 768px) {
   :root {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 

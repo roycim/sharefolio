@@ -134,14 +134,14 @@ export default function Navbar() {
             <Button
               asChild
               variant="outline"
-              className="px-4 py-2 text-xl hover:bg-muted/40 transition-colors"
+              className="px-4 py-2 text-lg font-semibold hover:bg-muted/40 transition-colors"
             >
               <Link href="/auth">Sign In</Link>
             </Button>
             <Button
               asChild
               variant="default"
-              className="px-4 py-2 text-xl hover:bg-muted/40 transition-colors"
+              className="px-4 py-2 text-lg font-semibold hover:bg-muted/40 transition-colors"
             >
               <Link href="/auth">Sign Up</Link>
             </Button>
