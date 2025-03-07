@@ -20,7 +20,10 @@ html {
 }
 
 body {
-  font-family: 'Funnel Display', sans-serif;
+  font-family: 'Funnel Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
   @apply transition-colors duration-300 ease-in-out bg-background text-foreground;
 }
 

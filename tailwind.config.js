@@ -63,8 +63,14 @@ module.exports = {
   		fontFamily: {
   			sans: [
   				'Funnel Display',
-                    ...fontFamily.sans
-                ]
+  				'system-ui',
+  				'-apple-system',
+  				'BlinkMacSystemFont',
+  				'Segoe UI',
+  				'Roboto',
+  				'Arial',
+  				'sans-serif'
+  			]
   		}
   	}
   },
