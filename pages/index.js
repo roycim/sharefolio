@@ -53,7 +53,7 @@ export default function Home() {
     <Layout>
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center pt-32 pb-24 overflow-hidden">
+        <section className="relative min-h-screen flex items-center pt-32 pb-24 overflow-hidden max-w-[100vw]">
           <div className="absolute inset-0 pointer-events-none">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
