@@ -109,8 +109,8 @@ export default function Navbar() {
           <Image
             src={isDarkMode ? "/sharefolio-logo-dark.png" : "/sharefolio-logo-light.png"}
             alt="Sharefolio Logo"
-            width={150}
-            height={20}
+            width={200}
+            height={40}
             priority
           />
         </div>
