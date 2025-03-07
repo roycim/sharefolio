@@ -42,11 +42,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={
-        `fixed top-0 left-0 w-full z-50 h-24 px-12 backdrop-blur-md border-b
+      className={`
+        fixed top-0 left-0 w-full z-50 h-24 px-12 backdrop-blur-md border-b
         ${isDarkMode ? "bg-card/80 border-border" : "bg-popover/80 border-border"}
-        flex items-center justify-between`
-      }
+        flex items-center justify-between
+      `}
     >
       {/* LEFT: Navigation Links */}
       <div className="flex items-center">
@@ -56,24 +56,26 @@ export default function Navbar() {
             return (
               <Link key={item.label} href={item.href} className="group relative">
                 <span
-                  className={
-                    `text-[22px] font-medium transition-colors duration-300 cursor-pointer
-                    ${isActive 
-                      ? isDarkMode 
-                        ? "font-bold text-white" 
-                        : "font-bold text-black" 
-                      : "text-foreground/80 dark:text-white/80"}
-                    ${isDarkMode ? "hover:text-white" : "hover:text-black"}`
-                  }
+                  className={`
+                    text-[22px] font-medium transition-colors duration-300 cursor-pointer
+                    ${
+                      isActive
+                        ? isDarkMode
+                          ? "font-bold text-white"
+                          : "font-bold text-black"
+                        : "text-foreground/80 dark:text-white/80"
+                    }
+                    ${isDarkMode ? "hover:text-white" : "hover:text-black"} 
+                  `}
                 >
                   {item.label}
                 </span>
                 {/* Underline Animation */}
                 <span
-                  className={
-                    `absolute -bottom-1 left-0 w-full h-0.5 bg-blue-400 scale-x-0
-                    group-hover:scale-x-100 transition-transform duration-300 origin-left`
-                  }
+                  className={`
+                    absolute -bottom-1 left-0 w-full h-0.5 bg-blue-400 scale-x-0
+                    group-hover:scale-x-100 transition-transform duration-300 origin-left
+                  `}
                 />
               </Link>
             );
@@ -166,10 +168,8 @@ function UserDropdown({ user, isDarkMode }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
-        className={
-          `min-w-[220px] p-3 border border-border rounded-md shadow-md 
-          ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`
-        }
+        className={`min-w-[220px] p-3 border border-border rounded-md shadow-md 
+                    ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
       >
         <DropdownMenuLabel className="flex flex-col items-center gap-1 py-3 px-4">
           <img src="/avatar.jpg" alt="Avatar" className="w-10 h-10 rounded-full" />
@@ -178,19 +178,15 @@ function UserDropdown({ user, isDarkMode }) {
         <DropdownMenuSeparator className="my-2 border-border" />
         <DropdownMenuGroup>
           <DropdownMenuItem 
-            className={
-              `py-3 px-4 text-sm rounded-md transition-colors 
-              ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`
-            }
+            className={`py-3 px-4 text-sm rounded-md transition-colors 
+                        ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
           >
             <Bolt size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
             <span>Profile</span>
           </DropdownMenuItem>
           <DropdownMenuItem 
-            className={
-              `py-3 px-4 text-sm rounded-md transition-colors 
-              ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`
-            }
+            className={`py-3 px-4 text-sm rounded-md transition-colors 
+                        ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
           >
             <UserPen size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
             <span>Settings</span>
@@ -199,10 +195,8 @@ function UserDropdown({ user, isDarkMode }) {
         <DropdownMenuSeparator className="my-2 border-border" />
         <DropdownMenuItem 
           onClick={handleLogout}
-          className={
-            `py-3 px-4 text-sm rounded-md transition-colors 
-            ${isDarkMode ? "text-red-400 hover:bg-gray-700" : "text-red-600 hover:bg-gray-200"}`
-          }
+          className={`py-3 px-4 text-sm rounded-md transition-colors 
+                      ${isDarkMode ? "text-red-400 hover:bg-gray-700" : "text-red-600 hover:bg-gray-200"}`}
         >
           <LogOut size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
           <span>Logout</span>
@@ -235,37 +229,29 @@ function ThemeDropdown({ isDarkMode, toggleTheme }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
-        className={
-          `min-w-[220px] p-3 border border-border rounded-md shadow-md 
-          ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`
-        }
+        className={`min-w-[220px] p-3 border border-border rounded-md shadow-md 
+                    ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
       >
         <DropdownMenuItem 
           onClick={() => handleSetTheme("light")} 
-          className={
-            `py-3 px-4 text-sm rounded-md transition-colors 
-            ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`
-          }
+          className={`py-3 px-4 text-sm rounded-md transition-colors 
+                      ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
         >
           <Sun size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
           <span>Light</span>
         </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={() => handleSetTheme("dark")} 
-          className={
-            `py-3 px-4 text-sm rounded-md transition-colors 
-            ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`
-          }
+          className={`py-3 px-4 text-sm rounded-md transition-colors 
+                      ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
         >
           <Moon size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
           <span>Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={() => handleSetTheme("system")} 
-          className={
-            `py-3 px-4 text-sm rounded-md transition-colors 
-            ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`
-          }
+          className={`py-3 px-4 text-sm rounded-md transition-colors 
+                      ${isDarkMode ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-200"}`}
         >
           <Monitor size={16} strokeWidth={2} className="opacity-60 mr-2" aria-hidden="true" />
           <span>System</span>
