@@ -98,7 +98,7 @@ body {
 
 /* Base typography settings */
 :root {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 @media (max-width: 768px) {

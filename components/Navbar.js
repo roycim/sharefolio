@@ -56,20 +56,21 @@ export default function Navbar() {
             return (
               <Link key={item.label} href={item.href} className="group relative">
                 <span
-                  className={`
-                    text-[22px] font-medium transition-colors duration-300 cursor-pointer
-                    ${
-                      isActive
-                        ? isDarkMode
-                          ? "font-bold text-white"
-                          : "font-bold text-black"
-                        : "text-foreground/80 dark:text-white/80"
-                    }
-                    ${isDarkMode ? "hover:text-white" : "hover:text-black"} 
-                  `}
-                >
-                  {item.label}
-                </span>
+            className={`
+              text-[22px] transition-colors duration-300 cursor-pointer
+              font-semibold
+              ${
+                isActive
+                  ? isDarkMode
+                    ? "text-white"
+                    : "text-black"
+                  : "text-foreground/80 dark:text-white/80"
+              }
+              ${isDarkMode ? "hover:text-white" : "hover:text-black"}
+            `}
+          >
+            {item.label}
+          </span>
                 {/* Underline Animation */}
                 <span
                   className={`
@@ -108,8 +109,8 @@ export default function Navbar() {
           <Image
             src={isDarkMode ? "/sharefolio-logo-dark.png" : "/sharefolio-logo-light.png"}
             alt="Sharefolio Logo"
-            width={200}
-            height={40}
+            width={150}
+            height={20}
             priority
           />
         </div>
@@ -133,14 +134,14 @@ export default function Navbar() {
             <Button
               asChild
               variant="outline"
-              className="px-4 py-2 text-xl hover:bg-muted/40 transition-colors"
+              className="px-4 py-2 text-lg font-semibold hover:bg-muted/40 transition-colors"
             >
               <Link href="/auth">Sign In</Link>
             </Button>
             <Button
               asChild
               variant="default"
-              className="px-4 py-2 text-xl hover:bg-muted/40 transition-colors"
+              className="px-4 py-2 text-lg font-semibold hover:bg-muted/40 transition-colors"
             >
               <Link href="/auth">Sign Up</Link>
             </Button>
